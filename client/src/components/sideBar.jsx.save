@@ -1,0 +1,12 @@
+import React from 'react';
+
+const Sidebar = () => {
+  return (
+    <div className='Online'>
+      <G
+    </div>
+  );
+  
+};
+
+export default Sidebar;

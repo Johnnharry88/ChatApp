@@ -1,0 +1,71 @@
+/* styles.css */
+
+/* Reset some default browser styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Light background color */
+}
+
+h1 {
+    text-align: center;
+}
+
+nav {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #007bff; /* Bootstrap primary color */
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Chat area styling */
+#chatArea {
+    max-width: 600px;
+    margin: 0 auto; /* Center the chat area */
+    padding: 20px;
+    background-color: #fff; /* White background for chat area */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Subtle shadow */
+}
+
+#messages {
+    height: 300px; /* Fixed height for message area */
+    overflow-y: scroll; /* Enable scrolling */
+    border: 1px solid #ccc; /* Light border */
+    padding: 10px; /* Padding inside message area */
+}
+
+#messageInput {
+    width: calc(100% - 90px); /* Full width minus button width */
+}
+
+button {
+    padding: 10px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column; /* Stack inputs vertically */
+}
+
+input[type='text'], input[type='password'] {
+    padding: 10px;
+    margin-bottom: 10px; /* Space between inputs */
+}
+
+
+

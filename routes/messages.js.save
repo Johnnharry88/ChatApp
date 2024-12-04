@@ -1,0 +1,81 @@
+const express = require('express');
+const auth = require('../middleware/auth');
+const Conversation = require('../models/Conversation');
+const Message = require('../models/Message');
+const Check = require('../models/Check');
+const router = express.Router();
+
+// Example protected route to fetch messages for the authenticated user
+router.get('/messages', auth, async (req, res) => {
+    try {
+        const messages = await Message.find({ recipient: req.userId }).populate('sender', 'username profilePicture');
+        res.json(messages);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Retrieve chat history between authenticated user and another user
+router.get('/messages/:userId', auth, async (req, res) => {
+    try {
+        // Fetch messages where the authenticated user is either the sender or recipient
+        const messages = await Message.find({
+            $or: [
+                { sender: req.userId, recipient: req.params.userId },
+                { sender: req.params.userId, recipient: req.userId }
+            ]
+        }).populate('sender recipient', 'username profilePicture'); // Populate user data
+
+        // Send the messages back to the client
+        res.json(messages);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.post('/send/:id', auth, async (req, res) => {
+  try {
+    const { message } = req.body;
+    const { id : receiverId} = req.params;
+    const senderId = req.user._id
+
+    const newMessage = await new Message({
+      senderId, receiverId, message
+    });
+
+    let discux =  await Conversation.create({
+     participants: [senderId, receiverId],
+      messages: [newMessage._id
+],
+    }).then(res => {
+        console.log(res)
+    });
+     if(newMessage) {
+       discux.message.push(newMessage._id);
+     
+ //  const newMessage = await new Message({
+ //    senderId, receiverId, message
+//   });
+//   if (newMessage) {
+//     idMessage = newMessage._id;
+//     discux.messages.push(idMessage);
+//    }
+ // const check = await Check.create({
+ //   messages: [newMessage._is]
+ //  });
+ // console.log(check);
+//socket.io come in here
+
+  await newMessage.save();
+  await discux.save();
+
+  res.status(201).json(newMessage);
+  } catch (error) {
+    //console.log(error.messaage);
+    res.status(500).json({ error: "Internal server error" });
+   console.log(error);
+  }
+});
+
+
+module.exports = router;
