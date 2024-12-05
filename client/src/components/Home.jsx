@@ -22,7 +22,7 @@ const Home = () => {
   // Function that handles sending message
   const handleSubmit = async(e) => {
     e.preventDefault();
-    if (!message || !select) return;
+    if (!message || !select) { return; }
     await sndMessage(message);
     setMessage('');
   }

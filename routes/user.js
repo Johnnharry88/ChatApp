@@ -48,7 +48,8 @@ router.patch('/profile/:id', Auth, upload.single('profilePicture'), async (req, 
     if (username === '') { username = req.user.username }
     console.log(password);
     console.log(username);
-    const profilePicture = req.file ? `${req.file.filename}` : null; // Get uploaded file path
+    let profilePicture = req.file ? `${req.file.filename}` : null; // Get uploaded file path
+    if (profilePicture === null) { profilePicture = req.user.profilePicture }
     const hashedPassword = await bcrypt.hash(password, 12);
     const newUpdate = { username, password: hashedPassword, bio, profilePicture, _id: id }
 

@@ -25,6 +25,7 @@ const FetchUsers = () => {
         const comm = await fetch('http://localhost:5000/api/chat/all', {
           headers: {"Authorization": `Bearer ${token}` }
         });
+        if (!comm) { throw new Error('Unable to fetch data from database at the moment') }
         const resp = await comm.json();
         if (resp.error) {
           throw new Error(resp.error);
@@ -36,7 +37,10 @@ const FetchUsers = () => {
         setLoading(false);
       }
     }
-    fetchUser();
+   const alx = fetchUser();
+   if (!alx) {
+     return;
+   }
   },[authUser, setAuthUser]);
   return { loading, allusers }
 }

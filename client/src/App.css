@@ -79,7 +79,17 @@ border-radius: 50%;;
 background-color: white;
 display: flex;
 object-fit: fill;
-border: 2px solid #cfb8cf;
+border: 3px solid #cfb8cf;
+}
+
+.piconline {
+width: 80px;
+height: 80px;
+border-radius: 50%;
+background-color: #308015;
+display: flex;
+object-fit: fill;
+border: 3px solid #44cf44;
 }
 
 .picholdx {
@@ -126,7 +136,7 @@ margin-top: 5px;
 }
 
 .onlineref1 {
-background-color: #aa77aa;
+background-color: #302570;
 display:flex;
 border-radius: 15px;
 }

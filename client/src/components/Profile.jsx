@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import NavBar from './navbar2';
 import { useAuthContext } from './AuthContext';
 import UpdateProfile from './editProfile';
+import toast from 'react-hot-toast';
 
 const Profile = ({ user }) => {
   const  { authUser } = useAuthContext()
@@ -20,6 +21,11 @@ const Profile = ({ user }) => {
   const handleUpdateProfile = async(e) => {
     e.preventDefault();
     if (editMode) {
+      if (editProfile.password === '') {
+        toast.error('Password field must not be empty');
+        return;
+      }
+
       /* functipon to update */
       postProfile(image, editProfile)
     }
