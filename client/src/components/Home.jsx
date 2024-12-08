@@ -9,7 +9,7 @@ import FetchMessages from './FetchMessages.js';
 import GetAllMessages from './getMessages';
 import FirstMsg from './firstMsg';
 import Messageload from './MessageLoader';
-
+import ListenEvent from './SockListen';
 
 const Home = () => {
   const date =  new Date().getFullYear()
@@ -17,6 +17,7 @@ const Home = () => {
   const { select, authUser } = useAuthContext()
   const { loading, sndMessage } = FetchMessages()
   const { messages, loader } = GetAllMessages()
+  ListenEvent() 
 
   if (!authUser) { window.location.href ='./login' }
   // Function that handles sending message

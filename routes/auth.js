@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs'); // Use bcryptjs for consistency
 const jwt = require('jsonwebtoken');
 const User = require('../models/User'); // Adjust the path as necessary
 
-const router = express.Router();
+ const router = express.Router();
 
 // User Registration Route
 router.post('/register', async (req, res) => {

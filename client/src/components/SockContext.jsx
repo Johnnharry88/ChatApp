@@ -28,7 +28,7 @@ export const SockContextProvider = ({ children }) => {
       return () => sockt.close();
     } else {
       if (sock) {
-        sock.close();
+        sock?.close();
         setSock(null);
       }
     }

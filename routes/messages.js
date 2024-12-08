@@ -1,9 +1,10 @@
 const express = require('express');
 const auth = require('../middleware/auth');
-var Conversation = require('../models/Conversation');
+const Conversation = require('../models/Conversation');
 const Message = require('../models/Message');
 const router = express.Router();
 const User = require('../models/User');
+const { io, getReceiverSocket } = require('../middleware/SocketObject');
 
 // Example protected route to fetch all users registered for the authenticated user
 router.get('/all', auth, async (req, res) => {
@@ -29,8 +30,8 @@ router.get('/message/:id', auth, async (req, res) => {
     if (!conversation) {
       return res.status(200).json([]);
      }
-     // Send the messages back to the client
-     const messages =  conversation.messages;
+     // Send the messages to the client
+     const messages = conversation.messages;
      res.status(200).json(messages);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -61,10 +62,15 @@ router.post('/send/:id', auth, async (req, res) => {
       conversation.messages.push(newMessage._id);
     }
 
-//socket.io  coding here
-
   await newMessage.save();
   await conversation.save();
+
+ // Socket sends message event to the client
+
+  const receiverSocketId = getReceiverSocket(receiverId);
+  if (receiverSocketId) {
+    io.to(receiverSocketId).emit("emitMessage", newMessage);
+  }
 
   res.status(201).json(newMessage);
   } catch (error) {
