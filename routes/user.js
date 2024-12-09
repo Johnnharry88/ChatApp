@@ -46,10 +46,9 @@ router.patch('/profile/:id', Auth, upload.single('profilePicture'), async (req, 
     const { id } = req.params;
     let { username, bio , password } = req.body;
     if (username === '') { username = req.user.username }
-    console.log(password);
-    console.log(username);
     let profilePicture = req.file ? `${req.file.filename}` : null; // Get uploaded file path
     if (profilePicture === null) { profilePicture = req.user.profilePicture }
+
     const hashedPassword = await bcrypt.hash(password, 12);
     const newUpdate = { username, password: hashedPassword, bio, profilePicture, _id: id }
 
@@ -58,7 +57,7 @@ router.patch('/profile/:id', Auth, upload.single('profilePicture'), async (req, 
     }
      await User.findByIdAndUpdate(id, newUpdate, { new: true });
      res.send({ newUpdate, message: 'Profile updated successfully' });
-    }
+  }
 });
 
 module.exports = router;

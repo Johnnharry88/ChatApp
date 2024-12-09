@@ -17,7 +17,7 @@ const NavBar = () => {
         <div>
           <div className='navbuttom'>
             <div className='profpics'>
-               <img src={'http://localhost:5000/'+ authUser.user.profilePicture } alt='img' className='imgholda' />        
+               <img src={'http://localhost:5000/'+ authUser?.user.profilePicture } alt='img' className='imgholda' />        
             </div>
          </div>
         <div className='navbuttom'>

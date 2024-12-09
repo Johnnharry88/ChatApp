@@ -5,7 +5,7 @@ import { useAuthContext } from './AuthContext';
 
 const Navbar = () => {
   const { authUser } = useAuthContext()
-  const username = authUser.user.username;
+  const username = authUser?.user.username;
   if (!authUser) { window.location.href='./login'}
   return(
     <div>
